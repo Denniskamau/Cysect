@@ -1,25 +1,33 @@
 class Config(object):
     """
-    Common configurations across all environments
-
+    Common configurations
     """
-   
-    
+
+    DEBUG = True
+
 class DevelopmentConfig(Config):
     """
-    All development configurations
+    Development configurations
     """
-    DEGUG = True #activates debug mode in development env
-    SQLALCHEMY_ECHO = True #allows sql to log errors.
+
+    SQLALCHEMY_ECHO = True
 
 class ProductionConfig(Config):
     """
-    All production Configurations
+    Production configurations
     """
 
-    DEBUG = False #deactivate debug mode in production env
+    DEBUG = False
+
+class TestingConfig(Config):
+    """
+    Testing configurations
+    """
+
+    TESTING = True
 
 app_config = {
     'development': DevelopmentConfig,
-    'production': ProductionConfig
+    'production': ProductionConfig,
+    'testing': TestingConfig
 }

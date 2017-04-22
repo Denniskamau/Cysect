@@ -1,8 +1,10 @@
-from flask import render_template
-from flask_login import login_required
+from flask import abort, render_template
+from flask_login import current_user, login_required
+
 
 from . import home
 
+#Home page route
 @home.route('/')
 def homepage():
     """
@@ -10,6 +12,7 @@ def homepage():
     """
     return render_template('home/index.html', title="Welcome")
 
+#Users dashboard
 @home.route('/dashboard')
 @login_required
 def dashboard():
@@ -17,3 +20,13 @@ def dashboard():
     Render the dashboard template on the /dashboard route
     """
     return render_template('home/dashboard.html', title="Dashboard")
+
+#admin dashboard
+@home.route('/admin/dashboard/')
+@login_required
+def admin_dashboard():
+    if not current_user.is_admin:
+        abort(403)
+    
+    return render_template('/home/admin_dashboard.html', title='Dashboard')
+    
